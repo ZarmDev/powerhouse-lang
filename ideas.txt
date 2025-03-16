@@ -1,0 +1,56 @@
+// If we see a "conversion" method i.e int, str, float; then, have the compiler call another handleConcatenation with the specifed type
+// Create an array with all conversion methods
+
+global {
+	randomvariable,
+	test
+}
+
+// artifically set input
+//setIn("0 10\n20 0")
+// or
+// file is a class
+//setIn(file("test.txt").read())
+
+class car {
+	private type = ""
+
+	// constructor
+	!car() {
+		this.test = test;
+	}
+
+	public printInfo(String info) {
+		logn(info)
+	}
+}
+
+test.printInfo()
+
+class child extends test {
+	
+}
+
+// SCOPE
+
+const x: int = 5
+const y: int = 10
+const z: int = 15
+
+// If the function is static, it CANNOT use outside variables - it helps performance
+static fn yolo() {
+	// error: variable does not exist.
+	x = 5
+}
+
+// you can free functions... if you want to. It removes the code to run from the memory.
+free_f(yolo)
+
+// you can also free variables.
+free_v(x)
+
+struct Vec2 {
+	
+}
+
+// Pointers:

@@ -1,0 +1,148 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0" version="25.0.3">
+  <diagram name="Page-1" id="INXMnd0MCcezFGGZq2XK">
+    <mxGraphModel dx="823" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="40.28571428571428" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-1" value="How does concatenation work?&lt;div&gt;(for int variables)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="10" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-3" target="xQm1VbLhDufl2UHaxlvB-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="345.1428571428571" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-3" value="Example:&amp;nbsp;x: int = 5 + int((int(&quot;5&quot; + &quot;5&quot;) + 2))" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="10" width="290" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-6" value="First, check if the character is a &quot;(&quot;&lt;div&gt;(we don&#39;t have to check for quotes because the variable specified it was a int&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="100" width="135" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-8" target="xQm1VbLhDufl2UHaxlvB-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-8" value="Since it&#39;s not, keep looping until there is a space." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="679.7931034482758" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-9" value="5 could be a variable or number. So, check if the first character is a digit (0-9)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-12" value="It is, so keep going until a &quot;+&quot; is detected and then add the resulting number to lastIntValue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="80" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="687.3793103448277" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-14" value="Keep going until you see no spaces.&lt;div&gt;Check if the first character is a digit&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="190" width="125" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-16" target="xQm1VbLhDufl2UHaxlvB-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-16" value="It&#39;s not so keep going until you see &quot;(&quot; or &quot;.&quot; since you can assume a method is being called" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="627.5" y="300" width="132.5" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525.3103448275863" y="419.9999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-18" value="Evaluate the method. Since it&#39;s int, pass the first &quot;(&quot; and go until you see a &quot;(&quot; or &quot;)&quot; quote" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="310" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="532.2068965517242" y="639.9999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-22" value="If you see a &quot;(&quot; increment the depth var by 1 and move to a higher index in the evaluation vector.&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="465" y="520" width="135" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-23" value="NOTE: Use expect/state variables to do all of this skipping character stuff" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="220" width="170" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-25" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="xQm1VbLhDufl2UHaxlvB-22">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="537" as="sourcePoint" />
+            <mxPoint x="440" y="517" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-26" value="The idea is say with int((int(&quot;5&quot; + &quot;5&quot;) + 2)) to have a vector like:&lt;br&gt;vector&amp;lt;String&amp;gt; order =&amp;nbsp;&lt;div&gt;{&quot;int\o&quot;, &quot;\o&quot;, &quot;int(\o) + 2&quot;, &quot;&#39;5&#39; + &#39;5&#39;&quot;}&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;\o just means the next item. So, apply the int method on nothing which will be applied on a int and 2 and the int will be applied on the next item and so on&amp;nbsp;&lt;/div&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="467" width="140" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-27" value="If you see a &quot;(&quot; increment, set the order to {&quot;int\o&quot;}" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="465" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.45;entryY=0.017;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-27" target="xQm1VbLhDufl2UHaxlvB-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550.1379310344828" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-30" value="We see another &quot;(&quot;.&lt;div&gt;Depth is 1. Order is now {&quot;int\o&quot;, &quot;\o&quot;}.&lt;/div&gt;&lt;div&gt;Now depth is increased by 1.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="640" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-32" target="xQm1VbLhDufl2UHaxlvB-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-32" value="Keep going until you see a &quot;(&quot; or &quot;)&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-34">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730.3333333333335" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-34" value="We see a &quot;)&quot; which means we decrease depth by 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="750" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-37">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720.3333333333335" y="960" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-37" value="Keep going until a &quot;)&quot; or a forced break by \n which is handled seperately" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="xQm1VbLhDufl2UHaxlvB-39">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="1020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-39" value="We see the &quot;)&quot; and we added all the previous characters &quot;+ 2&quot; to currWord so we can check if order[depth] is empty. If not, we can add to the end of it" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="960" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="xQm1VbLhDufl2UHaxlvB-42" value="Now, the loop will end by a forced \n and we can loop over the order vector and evaluate the methods" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="455" y="980" width="130" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

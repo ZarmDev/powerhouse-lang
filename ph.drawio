@@ -1,0 +1,117 @@
+<mxfile host="app.diagrams.net" modified="2024-12-02T02:54:28.772Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0" etag="frlOIQec4s5rXEk-OvOY" version="24.7.1" type="device">
+  <diagram name="Page-1" id="bIWTsPygNRdJOr_01cfB">
+    <mxGraphModel dx="564" dy="347" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="59.666666666666686" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-1" value="Loop&lt;div&gt;(EXPECT::none)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="59.666666666666686" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-5" value="Check for comment (first character is &quot;/&quot;)" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" width="100" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="620" y="59.666666666666686" as="targetPoint" />
+            <mxPoint x="560" y="60" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-10" target="Kpf1pgKVUWfb_YLcCQ_A-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-10" value="If a space is detected, it must be a class declaration, function declaration, return statement, if, while, for" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="30" width="130" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="499.97058823529414" y="120" as="targetPoint" />
+            <mxPoint x="499.4999999999999" y="80" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="170" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="380" y="90" />
+              <mxPoint x="380" y="155" />
+              <mxPoint x="330" y="155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="320" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="610" y="90" />
+              <mxPoint x="610" y="230" />
+              <mxPoint x="661" y="230" />
+              <mxPoint x="661" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-16" value="Otherwise, loop each character until there is a space, parentheses, . or :" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="499.8965517241379" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-17" value="If there are parentheses, then, it must be a method call&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330.2413793103449" y="230.24137931034488" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330.2413793103449" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-19" value="If there is a dot, then it&#39;s a class&#39;s method being called" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-24" value="Check if currWord is any of the above strings" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-26" value="Loop through all the built-in methods, and then user created methods. Use an unordered map to find the method (?)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="200" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330.2413793103449" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Kpf1pgKVUWfb_YLcCQ_A-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="479.9999999999999" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-30" value="Loop through each character until you reach parentheses" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-32" value="If the character is &quot;(&quot;, then it must be a call to a &lt;b&gt;method &lt;/b&gt;in the class ex: File.&lt;u&gt;read()&lt;/u&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="350" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-34" value="If the line ends with a sudden \n, then it must have been something like String.length meaning we can ignore it because it&#39;s just accessing a private varaible without doing anything with it" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="350" width="150" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Kpf1pgKVUWfb_YLcCQ_A-38" value="If a &quot;:&quot; is detected, then it must be a variable declaration. In that case, we can set expect to EXPECT::variable and then get the type after the colon" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="320" width="130" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,90 @@
+static auto handleConcantenation(const string& str) {
+    auto fullString = "";
+    auto lastValue = "";
+    auto currString = "";
+    for (int i = 0; i < str.length(); i++) {
+        if (str.at(i) == '"' || str.at(i) == '\'') {
+            // If it's the end of the quotation mark
+            if (handling == quotes) {
+                lastValue = currString;
+                fullString += lastValue;
+                handling = none;
+                currString = "";
+                continue;
+            }
+            handling = quotes;
+            continue;
+            // If it's the first character, then it's probably a variable so print it
+        }
+        else if (i == 0) {
+            handling = variable;
+        }
+        if (handling == quotes) {
+            //cout << str.at(i);
+            // If it's a special character (\)
+            if (str.at(i) == '\\') {
+                //cout << "wtf";
+                // Then, add that character to the string
+                i++;
+                if (str.at(i) == 'n') {
+                    currString += '\n';
+                }
+                continue;
+            }
+            currString += str.at(i);
+            continue;
+        }
+        if (handling == adding) {
+            if (str.at(i) != ' ') {
+                handling = variable;
+            }
+        }
+        // We can also assume it may be a number here
+        if (handling == variable) {
+            if (str.at(i) == ' ') {
+                handling = none;
+                if (isNumber(currString)) {
+                    //cout << str << " \n";
+                    //if (isNumber(lastValue)) {
+                    if (lastValue != "") {
+                        lastValue = stoi(lastValue) + stoi(currString);
+                    }
+                    else {
+                        cout << "?" << currString << '\n';
+                        lastValue = stoi(currString);
+                    }
+                    //}
+                    /*else {
+                        lastValue = currString;
+                    }*/
+                    cout << "new: " << lastValue << '\n';
+                    fullString += lastValue;
+                }
+                else {
+                    lastValue = getVariable(currString);
+                    fullString += lastValue;
+                }
+                currString = "";
+                continue;
+            }
+            currString += str.at(i);
+        }
+        if (str.at(i) == '+') {
+            handling = adding;
+        }
+    }
+    // If it the concatenation abrubtly ends (which it will), then add the last currString
+    // Or as a neat trick just add a space at the end or something to make the loop continue
+    if (currString != "") {
+        if (handling == HANDLER::variable) {
+            if (isNumber(currString)) {
+                fullString += currString;
+            }
+            else {
+                fullString += getVariable(currString);
+            }
+        }
+    }
+    handling = HANDLER::none;
+    return fullString;
+}

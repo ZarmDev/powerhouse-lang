@@ -1,0 +1,32 @@
+// You must specify types everywhere!
+// x: int = 5 + (5 + 5) + int(str("5" + "5"))
+x: str = "5" + "55555" + "5" + "5"
+
+// Causes error. Don't try to concatenate strings and integers. Convert it first.
+// Wrong: logn "test" + 5
+// Correct: logn "test" + str(5)
+// Or, specify at the top of your code to concatenate different types:
+// #allow-different-concat
+logn x
+
+input "Input here:"
+
+// In for loops, no need to specify the type for the variable!
+for (i=0;i<10;i++) {
+	logn str(i)
+}
+
+if (1 == 1) {
+	logn "1 is equal to 1"
+} else {
+	logn "1 is not equal to 1"
+}
+
+while (i < 10) {
+	
+}
+
+// Function example
+fn test(param1: int, param2: int) -> void {
+
+}

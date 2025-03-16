@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="saves">
+      <UniqueIdentifier>{9b599317-aaea-45d0-8ced-2ba2377b4e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\examples">
+      <UniqueIdentifier>{425df3b2-4f3f-48ce-9bee-a178a5860106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\notes">
+      <UniqueIdentifier>{b9e560ba-2c4b-4345-ab21-76b7e0a0b52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\svgs">
+      <UniqueIdentifier>{171a3509-63a1-4270-ba28-222f8e2686dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="compiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="concatenation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="perftests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="save2.txt">
+      <Filter>saves</Filter>
+    </Text>
+    <Text Include="originalsave.txt">
+      <Filter>saves</Filter>
+    </Text>
+    <Text Include="save.txt">
+      <Filter>saves</Filter>
+    </Text>
+    <Text Include="introduction.txt">
+      <Filter>Source Files\examples</Filter>
+    </Text>
+    <Text Include="ownership.txt">
+      <Filter>Source Files\examples</Filter>
+    </Text>
+    <Text Include="noteforconcatenation.txt">
+      <Filter>Source Files\notes</Filter>
+    </Text>
+    <Text Include="ideas.txt">
+      <Filter>Source Files\notes</Filter>
+    </Text>
+    <Text Include="test.txt">
+      <Filter>Source Files\examples</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="goals.md">
+      <Filter>Source Files\notes</Filter>
+    </None>
+    <None Include="concatenation.svg">
+      <Filter>Source Files\svgs</Filter>
+    </None>
+    <None Include="..\..\..\Downloads\concatenation.drawio">
+      <Filter>Source Files\svgs</Filter>
+    </None>
+    <None Include="ph.drawio">
+      <Filter>Source Files\svgs</Filter>
+    </None>
+    <None Include="ph.drawio.svg">
+      <Filter>Source Files\svgs</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="concatenation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

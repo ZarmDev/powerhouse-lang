@@ -1,0 +1,5 @@
+- classes cannot use global variables. Period. (Subject to debate)
+- Methods CANNOT use global variables unless a #scope is placed with global
+- Nested methods not allowed
+- After assigning a variable to another variable, the original variable is freed (use .clone())
+- IMPLEMENT POINTERS

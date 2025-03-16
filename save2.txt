@@ -1,0 +1,358 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+#include <stack>
+#include "helpermethods.h"
+
+using namespace std;
+
+/*
+Powerhouse
+A language designed to be faster than C++, but with less lines of code.
+The syntax is a mix of Cpp, Rust and it's own syntax
+It uses Rust data types, uses ownership, and no error handling unless you run it with the error handler compiler.
+However, it also has C++ features like struct and memory management from C++
+*/
+
+// AI usage
+class Variable {
+public:
+    enum Type { INT, FLOAT, STRING, UNDEFINED } type;
+    int intValue;
+    float floatValue;
+    string stringValue;
+
+    Variable() : type(UNDEFINED) {}
+    Variable(int value) : type(INT), intValue(value) {}
+    Variable(float value) : type(FLOAT), floatValue(value) {}
+    Variable(string value) : type(STRING), stringValue(value) {}
+
+    string toString() const {
+        switch (type) {
+        case INT: return to_string(intValue);
+        case FLOAT: return to_string(floatValue);
+        case STRING: return stringValue;
+        default: return "undefined";
+        }
+    }
+};
+
+class Method {
+    // Method implementation
+};
+
+class ClassInfo {
+public:
+    std::unordered_map<std::string, Variable> privateMembers;
+    std::unordered_map<std::string, Variable> publicMembers;
+    std::unordered_map<std::string, Method> privateMethods;
+    std::unordered_map<std::string, Method> publicMethods;
+};
+
+// Storage
+std::unordered_map<std::string, ClassInfo> classDefinitions;
+std::unordered_map<std::string, Variable> variables;
+// It increases each time you go deeper into a method
+int currentScopeDepth = 0;
+
+// State enums
+// Generally used in reading lines
+enum class EXPECT { none, variable, method, waitForEndOfLine, comment};
+EXPECT expect = EXPECT::none;
+// Used to process variables
+enum class VAREXPECT { none, varname, varassignment, varvalue };
+VAREXPECT varexpect = VAREXPECT::none;
+// Used in concatenation
+enum HANDLER { none, quotes, adding, variableormethod };
+HANDLER handling = HANDLER::none;
+bool isInClass = false;
+// the class we are in currently
+string currentClass = "";
+
+// Variables
+string currWord = "";
+string varname = "";
+string vartype = "";
+string methodname = "";
+const int bIMlen = 2;
+const string builtInMethods[bIMlen] = { "log", "logn"};
+
+// varname -> varassignment -> varvalue
+// x = 5; -> get the varname (x) then go past the assignment ('=') and then get the varvalue
+static bool checkForVariable(string code, int i) {
+    if (varexpect == VAREXPECT::varname) {
+        // Then, we no longer need to check var name
+        if (ch == '=') {
+            //cout << currWord << " <- varname\n";
+            // If there was a space, remove it in the var name
+            if (code.at(i - 1) == ' ') {
+                currWord.pop_back();
+            }
+            varname = currWord;
+            currWord = "";
+            varexpect = VAREXPECT::varassignment;
+            return true;
+        }
+        currWord += ch;
+        return true;
+    }
+    else if (varexpect == VAREXPECT::varassignment) {
+        // If we expect assignment, go past the = sign and find the expected value
+        if (ch != ' ') {
+            currWord += ch;
+            varexpect = VAREXPECT::varvalue;
+        }
+        return true;
+    } else if (varexpect == VAREXPECT::varvalue) {
+        //cout << ch << " test\n";
+        currWord += ch;
+        return true;
+    }
+    return false;
+}
+
+static void parseClass(const std::string& className, const std::string& code) {
+    bool inStaticMethod = false;
+}
+
+// AI Usage
+static string getVariable(const string& variableName) {
+    if (currentScopeDepth == 0) {
+        if (variables.find(variableName) != variables.end()) {
+            return variables[variableName].toString();
+        }
+    }
+    else if (currentScopeDepth == 1) {
+        // TODO
+    }
+    else if (isInClass) {
+        // TODO
+    }
+    return "undefined";
+}
+
+// IF you need to go back, there is a save file in Desktop
+// rewrite all of this to have two functions. One for string, one for integers.
+// in each function, have it loop and detect parentheses, declare a parentehseValue and 
+// parse the parentheses and then add it to the sum
+// also have it detect method calls and then parse those as well...
+
+static string handleStrConcatenation(const string& str) {
+    string fullString = "";
+    string currString = "";
+    for (int i = 0; i < str.length(); i++) {
+        if (str.at(i) == '"' || str.at(i) == '\'') {
+            // If it's the end of the quotation mark
+            if (handling == quotes) {
+                fullString += currString;
+                handling = none;
+                currString = "";
+                continue;
+            }
+            handling = quotes;
+            continue;
+        }
+        // If it's the first character, then it's probably a variable so print it
+        else if (i == 0) {
+            handling = HANDLER::variableormethod;
+        }
+        if (handling == quotes) {
+            //cout << str.at(i);
+            // If it's a special character (\)
+            if (str.at(i) == '\\') {
+                //cout << "wtf";
+                // Then, add that character to the string
+                i++;
+                if (str.at(i) == 'n') {
+                    currString += '\n';
+                }
+                continue;
+            }
+            currString += str.at(i);
+            continue;
+        }
+        else if (handling == HANDLER::adding) {
+            if (str.at(i) != ' ') {
+                handling = HANDLER::variableormethod;
+            }
+        }
+        // Here, it's not quotes so it may be a method, variable or class
+        else if (handling == HANDLER::variableormethod) {
+            if (str.at(i) == ' ') {
+                handling = none;
+                if (isNumber(currString)) {
+                    //cout << currString << " \n";
+                    fullString += currString;
+                }
+                else {
+                    fullString += getVariable(currString);
+                }
+                currString = "";
+                continue;
+            }
+            currString += str.at(i);
+        }
+        if (str.at(i) == '+') {
+            handling = adding;
+        }
+    }
+    // If it the concatenation abrubtly ends (which it will), then add the last currString
+    // Or as a neat trick just add a space at the end or something to make the loop continue
+    if (currString != "") {
+        if (handling == HANDLER::variableormethod) {
+            if (isNumber(currString)) {
+                fullString += currString;
+            }
+            else {
+                fullString += getVariable(currString);
+            }
+        }
+    }
+    handling = HANDLER::none;
+    return fullString;
+}
+
+static void print(string str) {
+    cout << str;
+}
+
+static void println(string str) {
+    cout << str << '\n';
+}
+
+int main()
+{
+    try {
+        ifstream file("introduction.txt");
+        if (!file.is_open()) {
+            cerr << "Failed to open file." << endl;
+            return 1;
+        }
+        string code((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+        file.close();
+
+        for (int i = 0; i < code.length(); i++) {
+            if (ch == '/' && expect == EXPECT::none) {
+                expect = EXPECT::comment;
+            }
+            // ## CHECK FOR NEW LINES ##
+            if (ch == '\n') {
+                if (expect == EXPECT::variable) {
+                    // If we had a variable declaration, we can finish up here
+                    if (varexpect == VAREXPECT::varvalue) {
+                        //cout << vartype << " " << varname << " = " << currWord << '\n';
+                        /*if (vartype == "string") {
+                            stringVariables.push_back({varname, currWord});
+                        } else if(vartype == "int") {
+                            intVariables.push_back({ varname, stoi(currWord) });
+                        }
+                        else if (vartype == "float") {
+                            floatVariables.push_back({ varname, stof(currWord) });
+                        }*/
+                        //cout << "curr " << currWord << '\n';
+                        currWord = handleStrConcatenation(currWord);
+                        //cout << "curr " << currWord << '\n';
+                        // AI Usage
+                        if (vartype == "str") {
+                            variables[varname] = Variable(currWord);
+                        }
+                        else if (vartype == "int") {
+                            variables[varname] = Variable(stoi(currWord));
+                        }
+                        else if (vartype == "float") {
+                            variables[varname] = Variable(stof(currWord));
+                        }
+                        // Remember to reset the variable state variable
+                        varexpect = VAREXPECT::none;
+                    }
+                }
+                expect = EXPECT::none;
+                currWord = "";
+                continue;
+            }
+            // ## CHECK IF DECLARATION ALREADY KNOWN ##
+            if (expect != EXPECT::none) {
+                if (expect == EXPECT::waitForEndOfLine) {
+                    continue;
+                }
+                else if (expect == EXPECT::variable) {
+                    if (varexpect == VAREXPECT::none) {
+                        varexpect = VAREXPECT::varname;
+                    }
+                    checkForVariable(code, i);
+                }
+                else if (expect == EXPECT::method) {
+                    // ## WHERE METHODS ARE RUN ##
+                    if (methodname == "log") {
+                        if (ch == ')') {
+                            expect = EXPECT::waitForEndOfLine;
+                            // Run the method
+                            print(currWord);
+                        }
+                        else {
+                            currWord += ch;
+                        }
+                    }
+                    else if (methodname == "logn") {
+                        if (ch == ')') {
+                            expect = EXPECT::waitForEndOfLine;
+                            // Run the method
+                            println(currWord);
+                        }
+                        else {
+                            currWord += ch;
+                        }
+                    }
+                }
+                continue;
+            }
+            else if (expect == EXPECT::comment) {
+                continue;
+            }
+
+            // Generally, each line can either be a method call (void), an assignment or a declaration of class, object...
+            // We should make a seperate function to parse each type of statement
+            if (ch == '(' || ch == ')' || ch == ' ') {
+                // Parse the word before the special symbols
+                // First check if currWord was a primitive type
+                //cout << currWord << '\n';
+                // This is a variable call then
+                if (isPrimitiveType(currWord)) {
+                    expect = EXPECT::variable;
+                    vartype = currWord;
+                    currWord = "";
+                }
+                else {
+                    // It may be a method call
+                    for (int i = 0; i < bIMlen; i++) {
+                        if (builtInMethods[i] == currWord) {
+                            // Call method function
+                            //cout << "Method: " << currWord;
+                            methodname = currWord;
+                            currWord = "";
+                            expect = EXPECT::method;
+                        }
+                    }
+                }
+            }
+            else {
+                currWord += ch;
+            }
+        }
+    }
+    catch (const std::exception& e) {
+        cout << e.what();
+    }
+    return 0;
+
+    // Idea: Make an array of all the commands ("binom", "frac") and then the compiler can first split it into tokens and then check the first character of each token
+    // ex: charcode = 60;
+    // vector<vector<string>> test;
+    // test.set(60, "binom")
+    // if the target string is not binom but starts with a b, go to the value that binom points to (use linked list because it's cool)
+
+    // Use ImGui Drawlist to render the latex
+}

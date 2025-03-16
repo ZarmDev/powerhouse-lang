@@ -1,0 +1,40 @@
+Instead of a vector, use a stack and process from last item to first item
+Also consider making it so you can concatenate different types at depth = 0
+
+NEW NOTES:
+I think the best system is having a variable called "mode" which can be str, int, etc
+It should loop through each char and then process it as it goes.
+Consider:
+Rule to make life easier: in any declarations or whatever, you must have (5 + 5) rather than something like
+int test = 5 + 5
+
+JUST USE THIS? https://www.geeksforgeeks.org/how-to-parse-mathematical-expressions-in-cpp/
+ACTUALLY JUST USE THIS https://github.com/cparse/cparse
+OR make your own? https://github.com/erikeidt/erikeidt.github.io/blob/master/The-Double-E-Method.md
+
+# Prerequisites:
+
+So, mode should be none but since we have 5 it will check that the first character is a number and
+just keep going along with it. If there is a ., then it will switch mode to float.
+
+We will have global variables, intV, strV, fV and more to hold the different types of values.
+
+# Steps for the example:
+1. Get vector of parentheses
+2. For each parentheses, if the depth is zero, then use originalMode which is the data type the overall variable was given.
+(if it's not in a variable, use clues like what is being called and other stuff to assume a data type or throw a error and say to specify the type)
+
+We should have two "order" vectors. One for the string values and one for the modes corresponding to the
+strings.
+
+Example of it in action:
+int test = 5 + (5 + 5) + int(str('5' + '5'));
+Skip everything except parsing parentheses.
+If we see any "converters" such as str, int, float then set the second order vector's corresponding value to
+the correct mode. If a ')' is detected 
+
+int test2 = (5 * (5 * 20 / 5) + (50 * 5)) + (5 / (((0*1))))
+
+stack = {"1(5 * 20 / 5)", "1|(50 * 5)", "1\t", "2\t", "30*1"}
+
+GO backwards. Pop 0*1 and then resolve that
