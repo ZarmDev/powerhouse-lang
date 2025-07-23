@@ -1,14 +1,13 @@
-﻿#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <stack>
-#include <unordered_set>
-#include <sstream>
-#include <queue>
-#include "utilities.h"
-#include "concatenation.h"
+﻿import utilities;
+import <iostream>;
+import <fstream>;
+import <string>;
+import <vector>;
+import <unordered_map>;
+import <stack>;
+import <unordered_set>;
+import <sstream>;
+import <queue>;
 
 using namespace std;
 
@@ -67,7 +66,7 @@ int currentScopeDepth = 0;
 
 // State enums
 // Generally used in reading lines
-enum class EXPECT { none, variable, method, waitForEndOfLine, comment, logInputOrReturn, waitTillNoSpace };
+enum class EXPECT { none, variable, method, waitForEndOfLine, comment, logInputOrReturnString, logInputOrReturnInt, waitTillNoSpace };
 EXPECT expect = EXPECT::none;
 // Used to process variables
 enum class VAREXPECT { vartype, varassignment, varvalue };
@@ -75,7 +74,6 @@ VAREXPECT varexpect = VAREXPECT::vartype;
 bool isInClass = false;
 // the class we are in currently
 string currentClass = "";
-bool isString = false;
 
 // Variables
 string currWord = "";
@@ -147,13 +145,13 @@ template <typename T> void ensureCapacity(std::vector<T>& vec, size_t index)
 	}
 }
 
-static void print(string str) {
-	cout << str;
-}
-
-static void println(string str) {
-	cout << str << '\n';
-}
+//static void print(string str) {
+//	cout << str;
+//}
+//
+//static void println(string str) {
+//	cout << str << '\n';
+//}
 
 int main()
 {
@@ -167,6 +165,8 @@ int main()
 			return 1;
 		}
 		string code((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+		// artifically add \n to ensure that the last line will be executed
+		code += "\n";
 
 		file.close();
 
@@ -186,13 +186,30 @@ int main()
 			}
 			// ## CHECK FOR NEW LINES. THIS SHOULD BE AT THE TOP. ##
 			if (ch == '\n') {
-				// This must be at the end because otherwise it outputs true always
-				if (expect == EXPECT::logInputOrReturn) {
+				if (expect == EXPECT::logInputOrReturnString) {
+					// TODO: Just testing...
+					cout << "TESTING\n";
+					// This must be at the end because otherwise it outputs true always
+					handleConcatenationWithDifferentTypes(currWord, getVariable);
+					continue;
 					if (methodname == "log") {
-						//print(handleStrConcatenation(currWord));
+						cout << handleStrConcatenation(currWord, getVariable);
 					}
 					else if (methodname == "logn") {
-						//println(handleStrConcatenation(currWord));
+						cout << handleStrConcatenation(currWord, getVariable) << '\n';
+					}
+				} else if (expect == EXPECT::logInputOrReturnInt) {
+					// TODO: Just testing...
+					cout << "TESTING\n";
+					// This must be at the end because otherwise it outputs true always
+					handleConcatenationWithDifferentTypes(currWord, getVariable);
+					continue;
+					//cout << currWord;
+					if (methodname == "log") {
+						cout << handleExpression(currWord);
+					}
+					else if (methodname == "logn") {
+						cout << handleExpression(currWord) << '\n';
 					}
 				}
 				// This must be at the end because otherwise it outputs true always
@@ -206,7 +223,7 @@ int main()
 							variables[varname] = Variable(currWord);
 						}
 						else if (vartype == "int") {
-							variables[varname] = Variable(stoi(currWord));
+							variables[varname] = Variable(handleExpression(currWord));
 						}
 						else if (vartype == "float") {
 							variables[varname] = Variable(stof(currWord));
@@ -224,13 +241,16 @@ int main()
 				if (expect == EXPECT::waitForEndOfLine) {
 					continue;
 				}
-				else if (expect == EXPECT::logInputOrReturn) {
+				else if (expect == EXPECT::logInputOrReturnString) {
 					currWord += ch;
-					// If the user puts a string
-					if (ch == '\'' || ch == '"') {
-						isString = true;
+					// We automatically assume the log is printing a string/variable unless we see parentheses, which means integer evaluation
+					if (ch == '(') {
+						expect = EXPECT::logInputOrReturnInt;
 					}
 					continue;
+				}
+				else if (expect == EXPECT::logInputOrReturnInt) {
+					currWord += ch;
 				}
 				else if (expect == EXPECT::waitTillNoSpace) {
 					if (ch == ' ') {
@@ -249,7 +269,7 @@ int main()
 					    if (ch == ')') {
 					        expect = EXPECT::waitForEndOfLine;
 					        // Run the method
-					        print(currWord);
+					        //print(currWord);
 					    }
 					    else {
 					        currWord += ch;
@@ -274,11 +294,8 @@ int main()
 			// It's definitely a log, input, return, for, while or class
 			if (ch == ' ') {
 				if (builtInSpecialMethods.find(currWord) != builtInSpecialMethods.end()) {
-					expect = EXPECT::logInputOrReturn;
+					expect = EXPECT::logInputOrReturnString;
 					methodname = currWord;
-					// Reset isString to default value
-					isString = false;
-					cout << currWord << '\n';
 					currWord = "";
 				}
 				else {

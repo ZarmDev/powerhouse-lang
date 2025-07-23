@@ -105,7 +105,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <BuildStlModules>true</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,9 +131,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="compiler.cpp" />
-    <ClCompile Include="concatenation.cpp" />
+    <ClCompile Include="concatenation.cppm" />
     <ClCompile Include="perftests.cpp" />
-    <ClCompile Include="utilities.cpp" />
+    <ClCompile Include="utilities.cppm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ideas.txt" />

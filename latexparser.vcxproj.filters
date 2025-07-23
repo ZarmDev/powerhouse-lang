@@ -30,10 +30,10 @@
     <ClCompile Include="compiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="concatenation.cpp">
+    <ClCompile Include="concatenation.cppm">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilities.cpp">
+    <ClCompile Include="utilities.cppm">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="perftests.cpp">

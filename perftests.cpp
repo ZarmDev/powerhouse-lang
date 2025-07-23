@@ -1,6 +1,6 @@
 // Uncomment whichever one you want to test and include these libraries if not already included
-#include <chrono>
-#include <iostream>
+import <chrono>;
+import <iostream>;
 
 // THIS IS TESTING THE FUNCTION, ADD THIS CODE TO MAIN.CPP IF YOU WANT TO TEST IT
 //void main() {
