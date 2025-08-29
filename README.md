@@ -4,6 +4,8 @@ The goal is to create an interpreted programming language that:
 2. Takes less time to create a program with
 3. And has a garbage collector
 
+Copyright (c) 2025 ZarmDev. All rights reserved.
+
 ## Why would it be faster than other languages?
 1. There will be **NO abstract syntax tree!**
 2. It will instead use **one for loop** that uses a state variable (enum) that decides what the compiler should be "looking for"
