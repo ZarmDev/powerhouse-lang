@@ -27,16 +27,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="compiler.cpp">
+    <ClCompile Include="compiler.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="concatenation.cppm">
+    <ClCompile Include="concatenation.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilities.cppm">
+    <ClCompile Include="utilities.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="perftests.cpp">
+    <ClCompile Include="perftests.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,7 +62,7 @@
     <Text Include="ideas.txt">
       <Filter>Source Files\notes</Filter>
     </Text>
-    <Text Include="test.txt">
+    <Text Include="code.txt">
       <Filter>Source Files\examples</Filter>
     </Text>
   </ItemGroup>
@@ -82,13 +82,5 @@
     <None Include="ph.drawio.svg">
       <Filter>Source Files\svgs</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="concatenation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

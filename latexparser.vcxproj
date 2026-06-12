@@ -30,26 +30,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <BuildStlModules>true</BuildStlModules>
     </ClCompile>
     <Link>
@@ -130,10 +130,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="compiler.cpp" />
-    <ClCompile Include="concatenation.cppm" />
-    <ClCompile Include="perftests.cpp" />
-    <ClCompile Include="utilities.cppm" />
+    <ClCompile Include="compiler.ixx" />
+    <ClCompile Include="concatenation.ixx" />
+    <ClCompile Include="perftests.ixx" />
+    <ClCompile Include="utilities.ixx" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ideas.txt" />
@@ -143,7 +143,7 @@
     <Text Include="ownership.txt" />
     <Text Include="save.txt" />
     <Text Include="save2.txt" />
-    <Text Include="test.txt" />
+    <Text Include="code.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Downloads\concatenation.drawio" />
@@ -151,10 +151,6 @@
     <None Include="goals.md" />
     <None Include="ph.drawio" />
     <None Include="ph.drawio.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="concatenation.h" />
-    <ClInclude Include="utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

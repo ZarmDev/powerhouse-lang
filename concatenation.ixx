@@ -14,10 +14,19 @@ import utilities;
 using namespace std;
 
 enum HANDLER { none, quotes, variableormethod, adding, number };
+enum CastType { INT, STR, FLOAT, CHAR };
+unordered_map<string, CastType> castMap = {
+    {"int", INT},
+    {"str", STR},
+    {"float", FLOAT},
+    {"char", CHAR}
+};
 
+const vector<string> methods = { "int", "str", "float" };
+char reserved = 'x';
 HANDLER handling = HANDLER::none;
 
-// (Full usage of AI) Function to ensure the vector is resized properly before accessing an element 
+// Function to ensure the vector is resized properly before accessing an element 
 template <typename T> void ensureCapacity(std::vector<T>& vec, size_t index)
 {
     if (index >= vec.size())
@@ -26,23 +35,6 @@ template <typename T> void ensureCapacity(std::vector<T>& vec, size_t index)
     }
 }
 
-enum CastType { INT, STR, FLOAT, CHAR };
-
-unordered_map<string, CastType> castMap = {
-    {"int", INT},
-    {"str", STR},
-    {"float", FLOAT},
-    {"char", CHAR}
-};
-
-vector<string> methods = { "int", "str", "float" };
-
-char reserved = 'x';
-
-enum HANDLER2 { none, quotes, adding, number, variablemethodorinteger };
-HANDLER2 handling2 = HANDLER2::variablemethodorinteger;
-
-//Full usage of AI
 static string replaceWithQueue(const string& str, queue<float>& q) {
     string result;
     for (char ch : str) {
@@ -203,13 +195,13 @@ export namespace concatenation {
         for (int i = 0; i < str.length(); i++) {
             if (str.at(i) == '"' || str.at(i) == '\'') {
                 // If it's the end of the quotation mark
-                if (handling == quotes) {
+                if (handling == HANDLER::quotes) {
                     fullString += currString;
-                    handling = none;
+                    handling = HANDLER::none;
                     currString = "";
                     continue;
                 }
-                handling = quotes;
+                handling = HANDLER::quotes;
                 continue;
             }
             // If it's the first character, and we don't get a sign that there is a string, then it's should be a variable
@@ -238,7 +230,7 @@ export namespace concatenation {
             // Here, it's not quotes so it may be a method, variable or class
             else if (handling == HANDLER::variableormethod) {
                 if (str.at(i) == ' ') {
-                    handling = none;
+                    handling = HANDLER::none;
                     // TODO: attempt to also find the method
                     fullString += getVariable(currString);
                     currString = "";
@@ -247,7 +239,7 @@ export namespace concatenation {
                 currString += str.at(i);
             }
             if (str.at(i) == '+') {
-                handling = adding;
+                handling = HANDLER::adding;
             }
         }
         // If it the concatenation abrubtly ends (which it will), then add the last currString
@@ -259,86 +251,6 @@ export namespace concatenation {
             }
         }
         handling = HANDLER::none;
-        return fullString;
-    }
-
-    string handleConcatenationWithDifferentTypes(const string& str, string(*getVariable)(const string& variableName)) {
-        string fullString = "";
-        // This is just the seperate parts of the string str
-        string currString = "";
-        for (int i = 0; i < str.length(); i++) {
-            if (str.at(i) == '"' || str.at(i) == '\'') {
-                // If it's the end of the quotation mark (since handling at the start is NOT quotes, it will not run this if statement)
-                if (handling2 == HANDLER2::quotes) {
-                    // This means that the quotes ended and we are no longer within a string
-                    fullString += currString;
-                    //cout << currString << '\n';
-                    handling2 = HANDLER2::none;
-                    //currString = "";
-                    continue;
-                }
-                // Set handling to quotes to ensure it will know when the quotes end
-                handling2 = HANDLER2::quotes;
-                continue;
-            }
-            // If it's the first character (and not a string), then it's probably a variable so print it
-            else if (i == 0) {
-                handling2 = HANDLER2::variablemethodorinteger;
-            }
-            if (handling2 == HANDLER2::none) {
-
-            }
-            else if (handling2 == HANDLER2::quotes) {
-                // If it's a special character (\)
-                if (str.at(i) == '\\') {
-                    // Then, add that character to the string
-                    i++;
-                    if (str.at(i) == 'n') {
-                        currString += '\n';
-                    }
-                    continue;
-                }
-                currString += str.at(i);
-                continue;
-            }
-            else if (handling2 == HANDLER2::adding) {
-                if (str.at(i) != ' ') {
-                    if (isNumber(str.at(i))) {
-                        handling2 = HANDLER2::number;
-                    }
-                    else {
-                        handling2 = HANDLER2::variablemethodorinteger;
-                    }
-                }
-            }
-            // Here, it's not quotes so it may be a method, variable or class
-            else if (handling2 == HANDLER2::variablemethodorinteger) {
-                if (str.at(i) == ' ') {
-                    handling2 = HANDLER2::none;
-                    fullString += getVariable(currString);
-                    currString = "";
-                    continue;
-                }
-                currString += str.at(i);
-            }
-            if (str.at(i) == '+') {
-                handling2 = HANDLER2::adding;
-            }
-        }
-        // If it the concatenation abrubtly ends (which it will), then add the last currString
-        // Or as a neat trick just add a space at the end or something to make the loop continue
-        if (currString != "") {
-            cout << currString << '\n';
-            if (handling2 == HANDLER2::variablemethodorinteger) {
-                if (all_of(currString.begin(), currString.end(), ::isdigit)) {
-                    fullString += currString;
-                }
-                else {
-                    fullString += getVariable(currString);
-                }
-            }
-        }
-        handling2 = HANDLER2::none;
         return fullString;
     }
 

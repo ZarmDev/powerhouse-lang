@@ -1,5 +1,5 @@
 //x: str = "test"
 //y: int = 5
 //logn (5 + (5 + 10) + 25 * 5)
-//logn (x + y)
-logn "test" + 2
+logn (0.5555 * 0.5)
+logn "test" + "  2"

@@ -1,13 +1,6 @@
 ﻿import utilities;
-import <iostream>;
-import <fstream>;
-import <string>;
-import <vector>;
-import <unordered_map>;
-import <stack>;
-import <unordered_set>;
-import <sstream>;
-import <queue>;
+import std;
+import concatenation;
 
 using namespace std;
 
@@ -157,10 +150,10 @@ int main()
 {
 
 	try {
-		ifstream file("test.txt");
+		ifstream file("code.txt");
 		if (!file.is_open()) {
 			cerr << "Failed to open file." << endl;
-			cout << "Waiting on exit...";
+			print("Waiting on exit...");
 			int t; cin >> t;
 			return 1;
 		}
@@ -171,7 +164,6 @@ int main()
 		file.close();
 
 		for (char ch : code) {
-			//cout << ch << '\n';
 			// To check if the first character is a special symbol such as comment
 			if (firstChar) {
 				if (ch == '/') {
@@ -184,32 +176,22 @@ int main()
 				}
 				firstChar = false;
 			}
-			// ## CHECK FOR NEW LINES. THIS SHOULD BE AT THE TOP. ##
+			// Check for new lines, should be at the top of if statements!
 			if (ch == '\n') {
 				if (expect == EXPECT::logInputOrReturnString) {
-					// TODO: Just testing...
-					cout << "TESTING\n";
-					// This must be at the end because otherwise it outputs true always
-					handleConcatenationWithDifferentTypes(currWord, getVariable);
-					continue;
 					if (methodname == "log") {
-						cout << handleStrConcatenation(currWord, getVariable);
+						cout << concatenation::handleStrConcatenation(currWord, getVariable);
 					}
 					else if (methodname == "logn") {
-						cout << handleStrConcatenation(currWord, getVariable) << '\n';
+						cout << concatenation::handleStrConcatenation(currWord, getVariable) << '\n';
 					}
 				} else if (expect == EXPECT::logInputOrReturnInt) {
-					// TODO: Just testing...
-					cout << "TESTING\n";
-					// This must be at the end because otherwise it outputs true always
-					handleConcatenationWithDifferentTypes(currWord, getVariable);
-					continue;
 					//cout << currWord;
 					if (methodname == "log") {
-						cout << handleExpression(currWord);
+						std::print("{}", concatenation::handleExpression(currWord));
 					}
 					else if (methodname == "logn") {
-						cout << handleExpression(currWord) << '\n';
+						std::print("{}\n", concatenation::handleExpression(currWord));
 					}
 				}
 				// This must be at the end because otherwise it outputs true always
@@ -223,7 +205,7 @@ int main()
 							variables[varname] = Variable(currWord);
 						}
 						else if (vartype == "int") {
-							variables[varname] = Variable(handleExpression(currWord));
+							variables[varname] = Variable(concatenation::handleExpression(currWord));
 						}
 						else if (vartype == "float") {
 							variables[varname] = Variable(stof(currWord));
@@ -236,7 +218,7 @@ int main()
 				firstChar = true;
 				continue;
 			}
-			// ## CHECK IF DECLARATION ALREADY KNOWN ##
+			// Check if declaration already known
 			if (expect != EXPECT::none) {
 				if (expect == EXPECT::waitForEndOfLine) {
 					continue;
@@ -321,7 +303,7 @@ int main()
 	catch (const std::exception& e) {
 		cout << e.what();
 	}
-	cout << "Waiting on exit...";
+	print("Program finished...");
 	int t; cin >> t;
 	return 0;
 }
