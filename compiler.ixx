@@ -1,6 +1,7 @@
 ﻿import utilities;
 import std;
 import concatenation;
+import fileloader;
 
 using namespace std;
 
@@ -27,27 +28,24 @@ public:
 	}
 };
 
-class Method {
-	// Method implementation
-};
+//class Method {
+//	// Method implementation
+//};
 
-class ClassInfo {
-public:
-	std::unordered_map<std::string, Variable> privateMembers;
-	std::unordered_map<std::string, Variable> publicMembers;
-	std::unordered_map<std::string, Method> privateMethods;
-	std::unordered_map<std::string, Method> publicMethods;
-};
+//class ClassInfo {
+//public:
+//	unordered_map<string, Variable> privateMembers;
+//	unordered_map<string, Variable> publicMembers;
+//	unordered_map<string, Method> privateMethods;
+//	unordered_map<string, Method> publicMethods;
+//};
 
-// Storage
-std::unordered_map<std::string, ClassInfo> classDefinitions;
-std::unordered_map<std::string, Variable> variables;
-// It increases each time you go deeper into a method
-int currentScopeDepth = 0;
+vector<int> intMemory;
+
 
 // State enums
 // Generally used in reading lines
-enum class EXPECT { none, variable, method, waitForEndOfLine, comment, logInputOrReturnString, logInputOrReturnInt, waitTillNoSpace };
+enum class EXPECT { none, variable, method, waitForEndOfLine, comment, logInputOrReturnString, logInputOrReturnInt, waitTillNoSpace, classmethodOrVariableOrBuiltinfunction};
 EXPECT expect = EXPECT::none;
 // Used to process variables
 enum class VAREXPECT { vartype, varassignment, varvalue };
@@ -97,64 +95,60 @@ static void checkForVariable(const char& ch) {
 	}
 }
 
-static void parseClass(const std::string& className, const std::string& code) {
-	bool inStaticMethod = false;
-}
-
-static string getVariable(const string& variableName) {
-	if (currentScopeDepth == 0) {
-		if (variables.find(variableName) != variables.end()) {
-			return variables[variableName].toString();
-		}
-	}
-	else if (currentScopeDepth == 1) {
-		// TODO
-	}
-	else if (isInClass) {
-		// TODO
-	}
-	return "undefined";
-}
-
-// (AI) Function to ensure the vector is resized properly before accessing an element 
-template <typename T> void ensureCapacity(std::vector<T>& vec, size_t index)
-{
-	if (index >= vec.size())
-	{
-		vec.resize(index + 1);
-	}
-}
+//static string getVariable(const string& variableName) {
+//	if (currentScopeDepth == 0) {
+//		if (variables.find(variableName) != variables.end()) {
+//			return variables[variableName].toString();
+//		}
+//	}
+//	else if (currentScopeDepth == 1) {
+//		// TODO
+//	}
+//	else if (isInClass) {
+//		// TODO
+//	}
+//	return "undefined";
+//}
 
 int main()
 {
-
+	auto start = chrono::steady_clock::now();
 	try {
-		ifstream file("code.txt");
-		if (!file.is_open()) {
-			println(clog, "Failed to open file.");
-			println("Waiting on exit...");
-			int t; cin >> t;
-			return 1;
-		}
-		string code((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-		// artifically add \n to ensure that the last line will be executed
-		code += "\n";
+		// TODO: artifically add \n to ensure that the last line will be executed
+		//code += "\n";
 
-		file.close();
+		// Lets just read stuff faster because we don't need any extra features iostream provides
+		auto buffer = fileloader::load_file_into_buffer("D:\\Visual Studio Projects\\powerhouse\\code.ph");
 
-		for (char ch : code) {
+		for (char ch : buffer) {
 			// ### THESE STATEMENTS ARE FOR SPECIAL CASES (like comments, #) ###
 
-			// To check if the first character is a special symbol such as comment. At later states, firstChar is reset to be true.
+			// To check if the first character is a special keyword or symbol such as comment, functions, etc. At later states, firstChar is reset to be true.
 			if (firstChar) {
 				if (ch == '/') {
 					expect = EXPECT::comment;
 					continue;
 				}
-				// We have a global declaration
-				else if (ch == '#') {
-					// TODO: implement global logic
+				// function
+				else if (ch == 'f') {
+
 				}
+				// const variable
+				else if (ch == '!') {
+
+				}
+				// struct
+				else if (ch == 's') {
+
+				}
+				// enum
+				else if (ch == 'e') {
+
+				}
+				// We have a global declaration
+				//else if (ch == '#') {
+				//	// TODO: implement global logic
+				//}
 				firstChar = false;
 			}
 
@@ -164,10 +158,10 @@ int main()
 			if (ch == '\n') {
 				if (expect == EXPECT::logInputOrReturnString) {
 					if (methodname == "log") {
-						print("{}", concatenation::handleStrConcatenation(currWord, getVariable));
+						//print("{}", concatenation::handleStrConcatenation(currWord, getVariable));
 					}
 					else if (methodname == "logn") {
-						println("{}", concatenation::handleStrConcatenation(currWord, getVariable));
+						//println("{}", concatenation::handleStrConcatenation(currWord, getVariable));
 					}
 				} else if (expect == EXPECT::logInputOrReturnInt) {
 					if (methodname == "log") {
@@ -182,13 +176,13 @@ int main()
 					// If we had a variable declaration, we can finish up here
 					if (varexpect == VAREXPECT::varvalue) {
 						if (vartype == "str") {
-							variables[varname] = Variable(concatenation::handleStrConcatenation(currWord, getVariable));
+							//variables[varname] = Variable(concatenation::handleStrConcatenation(currWord, getVariable));
 						}
 						else if (vartype == "int") {
-							variables[varname] = Variable(concatenation::handleExpression(currWord));
+							//variables[varname] = Variable(concatenation::handleExpression(currWord));
 						}
 						else if (vartype == "float") {
-							variables[varname] = Variable(stof(currWord));
+							//variables[varname] = Variable(stof(currWord));
 						}
 					}
 				}
@@ -198,9 +192,49 @@ int main()
 				firstChar = true;
 				continue;
 			}
+
+
+			// ## THESE STATEMENTS ARE FOR LO
 			// Check if declaration already known
 			if (expect != EXPECT::none) {
-				if (expect == EXPECT::waitForEndOfLine) {
+				if (expect == EXPECT::classmethodOrVariableOrBuiltinfunction) {
+					// It's definitely a log, input, return, for, while or class, because these are "special" keywords that have a space like log "test" or for (...) {}
+					if (ch == ' ') {
+						// TODO: Replace this code to assume it's a built in special method, since for loops, while class, need parentheses around them
+						//if (builtInSpecialMethods.find(currWord) != builtInSpecialMethods.end()) {
+						//	expect = EXPECT::logInputOrReturnString;
+						//	methodname = currWord;
+						//	currWord = "";
+						//}
+						//else {
+						//	// check if it's a for loop, while, class, etc
+						//}
+					}
+					// It's definitely a variable declaration, for example in -> mystr: str = "test" -> we are ignoring mystr and just "waiting" until we find the colon signifying it must be a variable
+					else if (ch == ':') {
+						varname = currWord;
+						//println("varname: {}", varname);
+						expect = EXPECT::waitTillNoSpace;
+						// We need to find out the type of the variable and the value
+						varexpect = VAREXPECT::vartype;
+						currWord = "";
+					}
+					// it's calling a class like server -> start("8080"), probably a bad idea to support chaining like server.response().tostring()
+					else if (ch == '-') {
+
+					}
+					// It's a method call, for example, myfunction()
+					else if (ch == '(') {
+						// check if it's a built in method call
+						if (builtInMethods.find(currWord) != builtInMethods.end()) {
+							methodname = currWord;
+							currWord = "";
+							expect = EXPECT::method;
+						}
+						// TODO: or check if it's a user created method
+					}
+				}
+				else if (expect == EXPECT::waitForEndOfLine) {
 					continue;
 				}
 				else if (expect == EXPECT::logInputOrReturnString) {
@@ -209,7 +243,6 @@ int main()
 					if (ch == '(') {
 						expect = EXPECT::logInputOrReturnInt;
 					}
-					continue;
 				}
 				else if (expect == EXPECT::logInputOrReturnInt) {
 					currWord += ch;
@@ -220,7 +253,6 @@ int main()
 						currWord = "";
 						expect = EXPECT::variable;
 					}
-					continue;
 				}
 				else if (expect == EXPECT::variable) {
 					checkForVariable(ch);
@@ -244,43 +276,22 @@ int main()
 
 			// ### ALL STATEMENTS BELOW ARE BEFORE WE HAVE FIGURED OUT WHAT WE ARE PARSING ####
 
-			// It's definitely a variable declaration, for example in -> mystr: str = "test" -> we are ignoring mystr and just "waiting" until we find the colon signifying it must be a variable
-			if (ch == ':') {
-				varname = currWord;
-				expect = EXPECT::waitTillNoSpace;
-				// We need to find out the type of the variable and the value
-				varexpect = VAREXPECT::vartype;
-				currWord = "";
-			}
-			// It's definitely a log, input, return, for, while or class, because these are "special" keywords that have a space like log "test" or for (...) {}
+			// If the first character didn't find a "pattern" this is the last character that signifies any pattern
 			if (ch == ' ') {
-				if (builtInSpecialMethods.find(currWord) != builtInSpecialMethods.end()) {
-					expect = EXPECT::logInputOrReturnString;
-					methodname = currWord;
-					currWord = "";
-				}
-				else {
-					// check if it's a for loop, while, class, etc
-				}
+				cout << currWord << '\n';
+				expect = EXPECT::classmethodOrVariableOrBuiltinfunction;
 			}
-			// It's a method call, for example, myfunction()
-			else if (ch == '(') {
-				// check if it's a built in method call
-				if (builtInMethods.find(currWord) != builtInMethods.end()) {
-					methodname = currWord;
-					currWord = "";
-					expect = EXPECT::method;
-				}
-				// TODO: or check if it's a user created method
-			}
-			// Otherwise just add the characters to currWord
+			// Otherwise just add the characters to currWord 
 			else {
 				currWord += ch;
 			}
 		}
 	}
 	catch (const exception& e) {
-		println(std::clog, "Error: {}", e.what());
+		println(clog, "Error: {}", e.what());
 	}
+	auto end = chrono::steady_clock::now();
+	auto ms = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+	println("Program took {}ms", ms);
 	return 0;
 }

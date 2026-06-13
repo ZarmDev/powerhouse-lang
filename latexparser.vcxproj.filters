@@ -39,6 +39,9 @@
     <ClCompile Include="perftests.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fileloader.ixx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="save2.txt">
@@ -62,7 +65,7 @@
     <Text Include="ideas.txt">
       <Filter>Source Files\notes</Filter>
     </Text>
-    <Text Include="code.txt">
+    <Text Include="code.ph">
       <Filter>Source Files\examples</Filter>
     </Text>
   </ItemGroup>

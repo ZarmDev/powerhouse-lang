@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="compiler.ixx" />
     <ClCompile Include="concatenation.ixx" />
+    <ClCompile Include="fileloader.ixx" />
     <ClCompile Include="perftests.ixx" />
     <ClCompile Include="utilities.ixx" />
   </ItemGroup>
@@ -144,7 +145,7 @@
     <Text Include="ownership.txt" />
     <Text Include="save.txt" />
     <Text Include="save2.txt" />
-    <Text Include="code.txt" />
+    <Text Include="code.ph" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Downloads\concatenation.drawio" />
