@@ -16,26 +16,14 @@ NOTES:
 - comments with "bad?" are possibly bad implementations
 */
 
-// AI usage
-class Variable {
+class StringVariable {
 public:
-	enum Type { INT, FLOAT, STRING, UNDEFINED } type;
-	int intValue;
-	float floatValue;
-	string stringValue;
+	string value;
 
-	Variable() : type(UNDEFINED) {}
-	Variable(int value) : type(INT), intValue(value) {}
-	Variable(float value) : type(FLOAT), floatValue(value) {}
-	Variable(string value) : type(STRING), stringValue(value) {}
+	StringVariable(string v) : value(v) {}
 
-	string toString() const {
-		switch (type) {
-		case INT: return to_string(intValue);
-		case FLOAT: return to_string(floatValue);
-		case STRING: return stringValue;
-		default: return "undefined";
-		}
+	int toInt() const {
+		// TODO
 	}
 };
 
@@ -113,7 +101,6 @@ static void parseClass(const std::string& className, const std::string& code) {
 	bool inStaticMethod = false;
 }
 
-// AI Usage
 static string getVariable(const string& variableName) {
 	if (currentScopeDepth == 0) {
 		if (variables.find(variableName) != variables.end()) {
@@ -138,22 +125,14 @@ template <typename T> void ensureCapacity(std::vector<T>& vec, size_t index)
 	}
 }
 
-//static void print(string str) {
-//	cout << str;
-//}
-//
-//static void println(string str) {
-//	cout << str << '\n';
-//}
-
 int main()
 {
 
 	try {
 		ifstream file("code.txt");
 		if (!file.is_open()) {
-			cerr << "Failed to open file." << endl;
-			print("Waiting on exit...");
+			println(clog, "Failed to open file.");
+			println("Waiting on exit...");
 			int t; cin >> t;
 			return 1;
 		}
@@ -164,7 +143,9 @@ int main()
 		file.close();
 
 		for (char ch : code) {
-			// To check if the first character is a special symbol such as comment
+			// ### THESE STATEMENTS ARE FOR SPECIAL CASES (like comments, #) ###
+
+			// To check if the first character is a special symbol such as comment. At later states, firstChar is reset to be true.
 			if (firstChar) {
 				if (ch == '/') {
 					expect = EXPECT::comment;
@@ -176,33 +157,32 @@ int main()
 				}
 				firstChar = false;
 			}
+
+			// ### THESE STATEMENTS ARE FOR AFTER WE HAVE ALREADY FIGURED OUT WHAT WE ARE PARSING (like variables, log, methods, etc) ###
+
 			// Check for new lines, should be at the top of if statements!
 			if (ch == '\n') {
 				if (expect == EXPECT::logInputOrReturnString) {
 					if (methodname == "log") {
-						cout << concatenation::handleStrConcatenation(currWord, getVariable);
+						print("{}", concatenation::handleStrConcatenation(currWord, getVariable));
 					}
 					else if (methodname == "logn") {
-						cout << concatenation::handleStrConcatenation(currWord, getVariable) << '\n';
+						println("{}", concatenation::handleStrConcatenation(currWord, getVariable));
 					}
 				} else if (expect == EXPECT::logInputOrReturnInt) {
-					//cout << currWord;
 					if (methodname == "log") {
-						std::print("{}", concatenation::handleExpression(currWord));
+						print("{}", concatenation::handleExpression(currWord));
 					}
 					else if (methodname == "logn") {
-						std::print("{}\n", concatenation::handleExpression(currWord));
+						print("{}\n", concatenation::handleExpression(currWord));
 					}
 				}
 				// This must be at the end because otherwise it outputs true always
 				else if (expect == EXPECT::variable) {
 					// If we had a variable declaration, we can finish up here
 					if (varexpect == VAREXPECT::varvalue) {
-						//cout << varname << ": " << vartype << " = " << currWord << '\n';
-						// AI Usage
 						if (vartype == "str") {
-							//variables[varname] = Variable(handleStrConcatenation(currWord));
-							variables[varname] = Variable(currWord);
+							variables[varname] = Variable(concatenation::handleStrConcatenation(currWord, getVariable));
 						}
 						else if (vartype == "int") {
 							variables[varname] = Variable(concatenation::handleExpression(currWord));
@@ -250,8 +230,6 @@ int main()
 					if (methodname == "log") {
 					    if (ch == ')') {
 					        expect = EXPECT::waitForEndOfLine;
-					        // Run the method
-					        //print(currWord);
 					    }
 					    else {
 					        currWord += ch;
@@ -263,17 +241,18 @@ int main()
 			else if (expect == EXPECT::comment) {
 				continue;
 			}
-			// It's definitely a variable declaration
+
+			// ### ALL STATEMENTS BELOW ARE BEFORE WE HAVE FIGURED OUT WHAT WE ARE PARSING ####
+
+			// It's definitely a variable declaration, for example in -> mystr: str = "test" -> we are ignoring mystr and just "waiting" until we find the colon signifying it must be a variable
 			if (ch == ':') {
-				// bad?
-				//currWord = currWord.substr(0, currWord.length() - 1);
 				varname = currWord;
 				expect = EXPECT::waitTillNoSpace;
 				// We need to find out the type of the variable and the value
 				varexpect = VAREXPECT::vartype;
 				currWord = "";
 			}
-			// It's definitely a log, input, return, for, while or class
+			// It's definitely a log, input, return, for, while or class, because these are "special" keywords that have a space like log "test" or for (...) {}
 			if (ch == ' ') {
 				if (builtInSpecialMethods.find(currWord) != builtInSpecialMethods.end()) {
 					expect = EXPECT::logInputOrReturnString;
@@ -284,7 +263,7 @@ int main()
 					// check if it's a for loop, while, class, etc
 				}
 			}
-			// It's a method call
+			// It's a method call, for example, myfunction()
 			else if (ch == '(') {
 				// check if it's a built in method call
 				if (builtInMethods.find(currWord) != builtInMethods.end()) {
@@ -300,10 +279,8 @@ int main()
 			}
 		}
 	}
-	catch (const std::exception& e) {
-		cout << e.what();
+	catch (const exception& e) {
+		println(std::clog, "Error: {}", e.what());
 	}
-	print("Program finished...");
-	int t; cin >> t;
 	return 0;
 }

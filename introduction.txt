@@ -9,7 +9,10 @@ x: str = "5" + "55555" + "5" + "5"
 // #allow-different-concat
 logn x
 
-input "Input here:"
+userName: str = input("Input here:")
+
+i += 5
+i *= 10
 
 // In for loops, no need to specify the type for the variable!
 for (i=0;i<10;i++) {

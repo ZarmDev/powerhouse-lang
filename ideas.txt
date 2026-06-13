@@ -1,22 +1,27 @@
-// If we see a "conversion" method i.e int, str, float; then, have the compiler call another handleConcatenation with the specifed type
-// Create an array with all conversion methods
-
-global {
-	randomvariable,
-	test
-}
 
 // artifically set input
-//setIn("0 10\n20 0")
-// or
-// file is a class
-//setIn(file("test.txt").read())
+setIn("0 10\n20 0")
 
+// read a file and set to input
+setIn(file("test.txt").read())
+
+x: str = "test"
+y: int = 5
+logn y * 5
+logn (0.5555 * 0.5)
+logn "test" + "  2"
+
+// classes
 class car {
 	private type = ""
 
 	// constructor
-	!car() {
+	$car() {
+		
+	}
+
+	// deconstructor
+	~car() {
 		this.test = test;
 	}
 
@@ -27,27 +32,16 @@ class car {
 
 test.printInfo()
 
-class child extends test {
-	
-}
-
-// SCOPE
-
+// scope and const
 const x: int = 5
-const y: int = 10
-const z: int = 15
 
-// If the function is static, it CANNOT use outside variables - it helps performance
-static fn yolo() {
+// If the function is isolated, it CANNOT use outside variables - it helps performance.
+isolated fn yolo() {
 	// error: variable does not exist.
 	x = 5
 }
 
-// you can free functions... if you want to. It removes the code to run from the memory.
-free_f(yolo)
-
-// you can also free variables.
-free_v(x)
+// you CANNOT free variables or functions. However, you 
 
 struct Vec2 {
 	
