@@ -40,19 +40,22 @@ public:
 //	unordered_map<string, Method> publicMethods;
 //};
 
-vector<int> intMemory;
-
+unordered_map<string, int32_t> i32Mem;
+unordered_map<string, int64_t> i64Mem;
+unordered_map<string, float> floatMem;
+unordered_map<string, char> charMem;
+unordered_map<string, string> stringMem;
 
 // State enums
 // Generally used in reading lines
-enum class EXPECT { none, variable, method, waitForEndOfLine, comment, logInputOrReturnString, logInputOrReturnInt, waitTillNoSpace, classmethodOrVariableOrBuiltinfunction};
+enum class EXPECT { none, variable, variablename, variablevalue, method, waitForEndOfLine, comment, logInputOrReturnString, logInputOrReturnInt, waitTillNoSpace, classmethodOrVariableOrBuiltinfunction};
 EXPECT expect = EXPECT::none;
 // Used to process variables
-enum class VAREXPECT { vartype, varassignment, varvalue };
-VAREXPECT varexpect = VAREXPECT::vartype;
-bool isInClass = false;
+//enum class VAREXPECT { vartype, varassignment, varvalue };
+//VAREXPECT varexpect = VAREXPECT::vartype;
+//bool isInClass = false;
 // the class we are in currently
-string currentClass = "";
+//string currentClass = "";
 
 // Variables
 string currWord = "";
@@ -60,40 +63,39 @@ string varname = "";
 string vartype = "";
 string methodname = "";
 bool firstChar = true;
-const unordered_set<string> builtInMethods = { "" };
 const unordered_set<string> builtInSpecialMethods = { "log", "logn", "return", "input" };
 
 
 // vartype -> varassignment -> varvalue
 // x: int = 5 -> go past the ":", get the type and then go past the assignment and get the value
-static void checkForVariable(const char& ch) {
-	//cout << ch << '\n';
-	if (varexpect == VAREXPECT::vartype) {
-		// If we expect assignment, go past the = sign and find the expected value
-		if (ch != ' ') {
-			currWord += ch;
-		}
-		else {
-			vartype = currWord;
-			currWord = "";
-			varexpect = VAREXPECT::varassignment;
-		}
-	}
-	// This is to skip the space and equal sign to get to the value
-	else if (varexpect == VAREXPECT::varassignment) {
-		if (ch == ' ' || ch == '=') {
-			return;
-		}
-		else {
-			currWord += ch;
-			varexpect = VAREXPECT::varvalue;
-		}
-	}
-	// Add the characters to currWord. In the '\n' check in int main(), it will actually assign the variable in memory
-	else if (varexpect == VAREXPECT::varvalue) {
-		currWord += ch;
-	}
-}
+//static void checkForVariable(const char& ch) {
+//	//cout << ch << '\n';
+//	if (varexpect == VAREXPECT::vartype) {
+//		// If we expect assignment, go past the = sign and find the expected value
+//		if (ch != ' ') {
+//			currWord += ch;
+//		}
+//		else {
+//			vartype = currWord;
+//			currWord = "";
+//			varexpect = VAREXPECT::varassignment;
+//		}
+//	}
+//	// This is to skip the space and equal sign to get to the value
+//	else if (varexpect == VAREXPECT::varassignment) {
+//		if (ch == ' ' || ch == '=') {
+//			return;
+//		}
+//		else {
+//			currWord += ch;
+//			varexpect = VAREXPECT::varvalue;
+//		}
+//	}
+//	// Add the characters to currWord. In the '\n' check in int main(), it will actually assign the variable in memory
+//	else if (varexpect == VAREXPECT::varvalue) {
+//		currWord += ch;
+//	}
+//}
 
 //static string getVariable(const string& variableName) {
 //	if (currentScopeDepth == 0) {
@@ -125,25 +127,23 @@ int main()
 
 			// To check if the first character is a special keyword or symbol such as comment, functions, etc. At later states, firstChar is reset to be true.
 			if (firstChar) {
-				if (ch == '/') {
+				switch (ch) {
+				case '/':
+					// comments
 					expect = EXPECT::comment;
 					continue;
-				}
-				// function
-				else if (ch == 'f') {
-
-				}
-				// const variable
-				else if (ch == '!') {
-
-				}
-				// struct
-				else if (ch == 's') {
-
-				}
-				// enum
-				else if (ch == 'e') {
-
+				case 'f':
+					// function
+					break;
+				case '!':
+					// const variable
+					break;
+				case 's':
+					// struct
+					break;
+				case 'e':
+					// enum
+					break;
 				}
 				// We have a global declaration
 				//else if (ch == '#') {
@@ -174,17 +174,22 @@ int main()
 				// This must be at the end because otherwise it outputs true always
 				else if (expect == EXPECT::variable) {
 					// If we had a variable declaration, we can finish up here
-					if (varexpect == VAREXPECT::varvalue) {
-						if (vartype == "str") {
-							//variables[varname] = Variable(concatenation::handleStrConcatenation(currWord, getVariable));
-						}
-						else if (vartype == "int") {
-							//variables[varname] = Variable(concatenation::handleExpression(currWord));
-						}
-						else if (vartype == "float") {
-							//variables[varname] = Variable(stof(currWord));
-						}
-					}
+					cout << "vartype: " << vartype << '\n';
+					//if (varexpect == VAREXPECT::varvalue) {
+					//	if (vartype == "str") {
+					//		stringMem[varname] = concatenation::handleStrConcatenation(currWord, stringMem);
+					//	}
+					//	else if (vartype == "i32") {
+					//		i32Mem[varname] = concatenation::handleExpression(currWord);
+					//	}
+					//	else if (vartype == "i64") {
+					//		cout << "found\n";
+					//		i64Mem[varname] = concatenation::handleExpression(currWord);
+					//	}
+					//	else if (vartype == "float") {
+					//		//variables[varname] = Variable(stof(currWord));
+					//	}
+					//}
 				}
 				expect = EXPECT::none;
 				currWord = "";
@@ -212,11 +217,12 @@ int main()
 					}
 					// It's definitely a variable declaration, for example in -> mystr: str = "test" -> we are ignoring mystr and just "waiting" until we find the colon signifying it must be a variable
 					else if (ch == ':') {
+						cout << "varname: " << currWord << '\n';
 						varname = currWord;
 						//println("varname: {}", varname);
-						expect = EXPECT::waitTillNoSpace;
+						expect = EXPECT::variablename;
 						// We need to find out the type of the variable and the value
-						varexpect = VAREXPECT::vartype;
+						//varexpect = VAREXPECT::vartype;
 						currWord = "";
 					}
 					// it's calling a class like server -> start("8080"), probably a bad idea to support chaining like server.response().tostring()
@@ -226,13 +232,19 @@ int main()
 					// It's a method call, for example, myfunction()
 					else if (ch == '(') {
 						// check if it's a built in method call
-						if (builtInMethods.find(currWord) != builtInMethods.end()) {
-							methodname = currWord;
-							currWord = "";
-							expect = EXPECT::method;
-						}
+						//if (builtInMethods.find(currWord) != builtInMethods.end()) {
+						methodname = currWord;
+						currWord = "";
+						expect = EXPECT::method;
+						//}
 						// TODO: or check if it's a user created method
 					}
+				}
+				else if (expect == EXPECT::variablename) {
+					if (ch == ' ') {
+						vartype = currWord;
+					}
+					currWord = "";
 				}
 				else if (expect == EXPECT::waitForEndOfLine) {
 					continue;
@@ -248,14 +260,14 @@ int main()
 					currWord += ch;
 				}
 				else if (expect == EXPECT::waitTillNoSpace) {
-					if (ch == ' ') {
-						// Reset currword
-						currWord = "";
-						expect = EXPECT::variable;
-					}
+					//if (ch == ' ') {
+					// Reset currword
+					currWord = "";
+					expect = EXPECT::variable;
+					//}
 				}
 				else if (expect == EXPECT::variable) {
-					checkForVariable(ch);
+					//checkForVariable(ch);
 				}
 				else if (expect == EXPECT::method) {
 					// ## WHERE METHODS ARE RUN ##

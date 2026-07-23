@@ -1,7 +1,7 @@
 // this langauge is called powerh for short or powerhouse
 
-// you can import C++ functions into the compiler easily
-import_cpp "vulkan.dll"
+// you can import C++ functions into the compiler easily. It automatically detects the OS, so it will resolve either vulkan.dll or vulkan.so (if you want cross platform, put both files in the same directory)
+import_cpp "vulkan"
 
 // if you want tools that you need, you import it. However, it's encouraged that you try to seperate files like below, where if you need functions in only a specific space, just use the using keyword because it's the only way to manage memory in powerhouse
 import "servertools.ph"
@@ -71,12 +71,16 @@ test.printInfo()
 // scope and const (yes const is !)
 !x :int = 5
 
-// If the function is isolated, it CANNOT use outside variables - it helps performance.
-fn pure yolo() -> void {
-	// error: variable does not exist.
-	x = 5
-
-	return
+// Functions are ISOLATED BY DEFAULT. It CANNOT use outside variables - it helps performance and the compiler design.
+// You must pass values to functions, and once a function executes, everything inside of it is immediately "destroyed"
+// Also, all variables passed to functions will ALWAYS be references and CANNOT be modified
+fn add_twenty(total: int) -> int {
+    // ERROR: x cannot be read or modified!
+	logn x
+	// ERROR: total cannot be modified
+    total = total + 20 
+	// CORRECT:
+    return total + 20
 }
 
 struct Vec2 {

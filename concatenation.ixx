@@ -188,7 +188,7 @@ Three: If extra performance is neccessary, it could be better to put the HANDLER
 
 export namespace concatenation {
     // The second parameter is just saying it expects the pointer to the function getVariable that takes a const string and returns a int
-    string handleStrConcatenation(const string& str, string(*getVariable)(const string& variableName)) {
+    string handleStrConcatenation(const string& str, unordered_map<string, string> stringMem) {
         string fullString = "";
         // This is just the seperate parts of the string str
         string currString = "";
@@ -232,7 +232,7 @@ export namespace concatenation {
                 if (str.at(i) == ' ') {
                     handling = HANDLER::none;
                     // TODO: attempt to also find the method
-                    fullString += getVariable(currString);
+                    fullString += stringMem[currString];
                     currString = "";
                     continue;
                 }
@@ -247,7 +247,7 @@ export namespace concatenation {
         if (currString != "") {
             if (handling == HANDLER::variableormethod) {
                 // TODO: attempt to also find the method
-                fullString += getVariable(currString);
+                fullString += stringMem[currString];
             }
         }
         handling = HANDLER::none;
